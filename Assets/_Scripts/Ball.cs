@@ -29,9 +29,9 @@ public class Ball : MonoBehaviour
 
     void CalcMovementFaceDirection()       // TODO add Quaternion.Slerp for smooth rotation for the character between axis + speed controller.
     {
+        Debug.Log(this.GetComponent<Rigidbody2D>().velocity);
         //Debug.Log(transform.InverseTransformDirection(this.gameObject.GetComponent<Rigidbody2D>().velocity));
         Vector3 positionFor2D = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
-
         Vector3 deltaPosition = positionFor2D - _previousPosition;  // Calculate position change between frames
 
         if (deltaPosition != Vector3.zero)
