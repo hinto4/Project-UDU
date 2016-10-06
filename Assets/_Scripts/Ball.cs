@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+// lisasin komentaari
 public class Ball : MonoBehaviour
 {
     public int MaxDamage = 100;
