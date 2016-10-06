@@ -9,7 +9,7 @@ public class Ball : MonoBehaviour
     public int Damage;
     public GameObject DamageIndicatorPrefab;
 
-    //
+    // Mingi muudatus siin.
     private BonusManager _bonusManager;
 
     void Start()
