@@ -4,8 +4,6 @@
 /[Bb]uild/
 /[Bb]uilds/
 /Game_Data/
-/ProjectSettings/
-/ProjectSettings/*
 /Assets/Standard Assets*
 /Assets/*.meta
 /Assets/_Scripts/*.meta

@@ -20,7 +20,11 @@ public abstract class Obstacle : MonoBehaviour
     {
         if (Health <= 0)
         {
+            if (this.gameObject == null)
+                return; 
+
             _obstaclesManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
+
             _obstaclesManager.UpdateObstacleValue();
             GameObject.DestroyObject(this.gameObject);
         }
@@ -31,7 +35,6 @@ public abstract class Obstacle : MonoBehaviour
         if (col.gameObject == _playerBall.gameObject)
         {
             _damage = _playerBall.Damage;
-            Debug.Log(_damage);
             Health -= _damage;
         }
     }
