@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerController : MonoBehaviour
+public class BoxMovementController : MonoBehaviour
 {
     public float RotationSpeed = 100f;
 

@@ -5,8 +5,9 @@ using System.Collections.Generic;
 
 public class BonusManager : MonoBehaviour
 {
-    public int Bonus;
     public Text BonusValue;
+
+    private int _bonus;
 
     private readonly List<Bonus> _bonusesInGame = new List<Bonus>();
 
@@ -16,18 +17,22 @@ public class BonusManager : MonoBehaviour
         {
             _bonusesInGame.Add(bonus);
         }
-
-        BonusValue.text = Bonus.ToString();
     }
     
-    public void UpdateBonusValue()
+    public void UpdateBonusValue(int value)
     {
-        BonusValue.text = Bonus.ToString();
+        _bonus = value;
+        UpdateBonusCanvas();
     }
 
     public void RemoveBonusItem(Bonus bonus)
     {
         _bonusesInGame.Remove(bonus);
+    }
+
+    private void UpdateBonusCanvas()
+    {
+        BonusValue.text = _bonus.ToString();
     }
 
 }

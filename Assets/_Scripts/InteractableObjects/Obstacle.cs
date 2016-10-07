@@ -6,36 +6,47 @@ public abstract class Obstacle : MonoBehaviour
 {
     public float Health = 100f;
 
-    private float _damage;
+    public GameObject BonusItemPrefab;
+
     private Ball _playerBall;
-    private ObstaclesManager _obstaclesManager;
+    private PointsManager _pointsManager;
 
     void Start()
     {
         _playerBall = GameObject.FindObjectOfType<Ball>();
-        _obstaclesManager = GameObject.FindObjectOfType<ObstaclesManager>();
+        _pointsManager = GameObject.FindObjectOfType<PointsManager>();
     }
 
     void Update()
     {
+        ScanHealth();
+    }
+
+    void ScanHealth()
+    {
         if (Health <= 0)
         {
             if (this.gameObject == null)
-                return; 
+                return;
 
-            _obstaclesManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
+            _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
+            _pointsManager.UpdatePointsValue();
+            SpawnBonusItem();
 
-            _obstaclesManager.UpdateObstacleValue();
             GameObject.DestroyObject(this.gameObject);
         }
+    }
+
+    void SpawnBonusItem()
+    {
+        Instantiate(BonusItemPrefab, this.transform.position, Quaternion.identity);
     }
 
    void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject == _playerBall.gameObject)
         {
-            _damage = _playerBall.Damage;
-            Health -= _damage;
+            Health -= _playerBall.Damage;
         }
     }
 }

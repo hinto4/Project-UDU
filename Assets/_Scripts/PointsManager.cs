@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
 
-public class ObstaclesManager : MonoBehaviour
+public class PointsManager : MonoBehaviour
 {
-    public Text ObstacleValue;
+    public Text PointsValue;
+
+    private int _collectedPoints;
 
     private readonly List<Obstacle> _obstaclesInGame = new List<Obstacle>();
 
@@ -15,19 +17,22 @@ public class ObstaclesManager : MonoBehaviour
         {
              _obstaclesInGame.Add(obstacle);
         }
-
-        ObstacleValue.text = _obstaclesInGame.Count.ToString();
     }
 
     public void RemoveObstacle(Obstacle obstacle)
     {
         _obstaclesInGame.Remove(obstacle);
-       
     }
 
-    public void UpdateObstacleValue()
+    public void UpdatePointsValue()
     {
-        ObstacleValue.text = _obstaclesInGame.Count.ToString();
+        _collectedPoints++;
+        UpdatePointsCanvas();   
+    }
+
+    private void UpdatePointsCanvas()   
+    {
+        PointsValue.text = _collectedPoints.ToString();
     }
 
 }

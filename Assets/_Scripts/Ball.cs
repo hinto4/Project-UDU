@@ -6,12 +6,14 @@ using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
 {
-    public int MaxDamage = 100;
-    public int MinDamage = 10;
-    public int Damage;
+    public int Damage { get; private set; }
+
     public GameObject DamageIndicatorPrefab;
 
     private BonusManager _bonusManager;
+
+    private int MaxDamage = 50;
+    private int MinDamage = 10;
 
     private Vector3 _previousPosition;
 
@@ -29,7 +31,7 @@ public class Ball : MonoBehaviour
 
     void CalcMovementFaceDirection()       // TODO add Quaternion.Slerp for smooth rotation for the character between axis + speed controller.
     {
-        Debug.Log(this.GetComponent<Rigidbody2D>().velocity);
+        //Debug.Log(this.GetComponent<Rigidbody2D>().velocity);
         //Debug.Log(transform.InverseTransformDirection(this.gameObject.GetComponent<Rigidbody2D>().velocity));
         Vector3 positionFor2D = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
         Vector3 deltaPosition = positionFor2D - _previousPosition;  // Calculate position change between frames
@@ -42,8 +44,8 @@ public class Ball : MonoBehaviour
         _previousPosition = transform.position;                     // Recording current position as previous position for next frame
     }
 
-    void DamageManager()
-    {
+    void DamageManager()                                            // Give random damage.
+    {                                                               //TODO Adding feature, damage depends on the speed of the ball.
         Damage = Random.Range(MinDamage, MaxDamage);
     }
 
@@ -53,7 +55,7 @@ public class Ball : MonoBehaviour
         if (damageIndicator == null)
             return;
 
-        if (Damage > MaxDamage - 10)                                        // TODO replace this ugly magic shit... Check for percent of the damage to max damage.
+        if (Damage > MaxDamage - 10)                                        // TODO replace this ugly magic... Check for percent of the damage to max damage.
         {
             damageIndicator.GetComponent<TextMesh>().color = Color.red;
         }
@@ -76,11 +78,10 @@ public class Ball : MonoBehaviour
             ShowDamagePopUp();
         }
 
-        if (col.gameObject.GetComponent<Bonus>())
-        {
-            _bonusManager.Bonus += 20;              // TODO will be changed, bonus value depends on the value and type of the picked up bonus.
-            _bonusManager.UpdateBonusValue();
-            _bonusManager.RemoveBonusItem(col.gameObject.GetComponent<Bonus>());
-        }
+        //if (col.gameObject.GetComponent<Bonus>())
+        //{                                                       // TODO make the bonus class work with this.
+        //    _bonusManager.UpdateBonusValue(20);              // TODO will be changed, bonus value depends on the value and type of the picked up bonus.
+        //    _bonusManager.RemoveBonusItem(col.gameObject.GetComponent<Bonus>());
+        //}
     }
 }
