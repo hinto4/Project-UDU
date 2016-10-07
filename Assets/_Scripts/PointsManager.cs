@@ -24,9 +24,9 @@ public class PointsManager : MonoBehaviour
         _obstaclesInGame.Remove(obstacle);
     }
 
-    public void UpdatePointsValue()
+    public void UpdatePointsValue(int value)
     {
-        _collectedPoints++;
+        _collectedPoints += value;
         UpdatePointsCanvas();   
     }
 

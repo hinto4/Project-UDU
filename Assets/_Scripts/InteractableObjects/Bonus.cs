@@ -1,19 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
 public abstract class Bonus : MonoBehaviour
 {
     public int AliveTime = 5;
+    public int MaxPointsToGive = 5;
 
     private Ball _playerBall;
     private TextMesh _countDownTimerText;
     private float _countDownTimer;
+    private PointsManager _pointsManager;
 
     void Start()
     {
         _playerBall = GameObject.FindObjectOfType<Ball>();
         _countDownTimerText = GetComponentInChildren<TextMesh>();
         _countDownTimer = Time.time + AliveTime;
+        _pointsManager = FindObjectOfType<PointsManager>();
+
     }
 
     void Update()
@@ -39,7 +44,17 @@ public abstract class Bonus : MonoBehaviour
 
     void CalcPointsBonus()
     {
-        
+        double remainingTime = Mathf.RoundToInt(_countDownTimer - Time.time);
+
+        if (remainingTime < 0)
+            return;
+
+        double percentOfAliveTime = remainingTime / Convert.ToDouble(AliveTime);
+        float calcPoints = Convert.ToSingle(percentOfAliveTime) * MaxPointsToGive;
+
+        _pointsManager.UpdatePointsValue(Mathf.RoundToInt(calcPoints));
+
+        DestroyObject(this.gameObject);
     }
 
     void OnCollisionEnter2D(Collision2D col)

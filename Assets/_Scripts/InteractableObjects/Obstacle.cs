@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 public abstract class Obstacle : MonoBehaviour
 {
     public float Health = 100f;
+    public int GivePointsForDestroying = 1;                     // default is 1
 
     public GameObject BonusItemPrefab;
 
@@ -30,7 +31,7 @@ public abstract class Obstacle : MonoBehaviour
                 return;
 
             _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
-            _pointsManager.UpdatePointsValue();
+            _pointsManager.UpdatePointsValue(GivePointsForDestroying);
             SpawnBonusItem();
 
             GameObject.DestroyObject(this.gameObject);
