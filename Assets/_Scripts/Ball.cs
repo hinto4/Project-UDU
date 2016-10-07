@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
 {
     public int Damage { get; private set; }
 
-    public GameObject DamageIndicatorPrefab;
+    public GameObject WordSpaceTextPrefab;
 
     private BonusManager _bonusManager;
 
@@ -51,7 +51,7 @@ public class Ball : MonoBehaviour
 
     void ShowDamagePopUp()
     {
-        GameObject damageIndicator = Instantiate(DamageIndicatorPrefab, this.transform.position, Quaternion.identity) as GameObject;
+        GameObject damageIndicator = Instantiate(WordSpaceTextPrefab, this.transform.position, Quaternion.identity) as GameObject;
         if (damageIndicator == null)
             return;
 
@@ -69,6 +69,17 @@ public class Ball : MonoBehaviour
         }
 
         damageIndicator.GetComponent<TextMesh>().text = Damage.ToString();
+    }
+
+    public void ShowPlayerTextNotation(string message)
+    {
+        GameObject updateTextObject = Instantiate(WordSpaceTextPrefab, this.transform.position, Quaternion.identity) as GameObject;
+
+        if (updateTextObject == null)
+            return;
+
+        updateTextObject.GetComponent<TextMesh>().color = Color.green;
+        updateTextObject.GetComponent<TextMesh>().text = message;
     }
 
     void OnCollisionEnter2D(Collision2D col)

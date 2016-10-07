@@ -19,6 +19,7 @@ public abstract class Bonus : MonoBehaviour
         _countDownTimer = Time.time + AliveTime;
         _pointsManager = FindObjectOfType<PointsManager>();
 
+        GetComponent<Rigidbody2D>().AddForce(Vector2.up * 200f);
     }
 
     void Update()
@@ -53,6 +54,7 @@ public abstract class Bonus : MonoBehaviour
         float calcPoints = Convert.ToSingle(percentOfAliveTime) * MaxPointsToGive;
 
         _pointsManager.UpdatePointsValue(Mathf.RoundToInt(calcPoints));
+        _playerBall.ShowPlayerTextNotation("+" + calcPoints.ToString());
 
         DestroyObject(this.gameObject);
     }
