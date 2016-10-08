@@ -26,4 +26,9 @@ public class LevelManager : MonoBehaviour
         Level++;
         _canvasTextManager.UpdateCanvasTextValue(_canvasTextManager.LevelText, Level.ToString());
     }
+
+    public void GenerateNewLevel()
+    {
+        
+    }
 }
