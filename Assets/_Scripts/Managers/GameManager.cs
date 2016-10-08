@@ -12,6 +12,8 @@ public class GameManager : MonoBehaviour
     private CanvasTextManager _canvasTextManager;
     private LevelManager _levelManager;
 
+    private bool levelProgressed;
+
     void Start()
     {
         _pointsManager = GameObject.FindObjectOfType<PointsManager>();
@@ -31,7 +33,11 @@ public class GameManager : MonoBehaviour
         if (_pointsManager.CollectedPoints >= NeededPoints)
         {
             // Enable level progression.
-            _levelManager.ProgressToNextLevel();
+            if (!levelProgressed)
+            {
+                _levelManager.ProgressToNextLevel();
+                levelProgressed = true;
+            }
         }
     }
 }
