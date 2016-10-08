@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(PointsManager))]
 public class GameManager : MonoBehaviour
 {
     [Tooltip("Set the points that are needed for player to progress to the next level.")]
@@ -16,5 +17,18 @@ public class GameManager : MonoBehaviour
         _canvasTextManager = GameObject.FindObjectOfType<CanvasTextManager>();
 
         _canvasTextManager.NeededPointsText.text = NeededPoints.ToString();
+    }
+
+    void Update()
+    {
+        TrackCollectedPoints();
+    }
+
+    void TrackCollectedPoints()
+    {
+        if (_pointsManager.CollectedPoints >= NeededPoints)
+        {
+            // Enable level progression.
+        }
     }
 }
