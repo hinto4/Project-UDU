@@ -5,11 +5,16 @@ using UnityEngine.UI;
 
 public class PointsManager : MonoBehaviour
 {
-    public Text PointsValue;
-
     private int _collectedPoints;
 
+    public int CollectedPoints
+    {
+        get { return _collectedPoints; }
+    }
+
     private readonly List<Obstacle> _obstaclesInGame = new List<Obstacle>();
+
+    private CanvasTextManager _canvasTextManager;
 
     void Start()
     {
@@ -17,6 +22,8 @@ public class PointsManager : MonoBehaviour
         {
              _obstaclesInGame.Add(obstacle);
         }
+
+        _canvasTextManager = GameObject.FindObjectOfType<CanvasTextManager>();
     }
 
     public void RemoveObstacle(Obstacle obstacle)
@@ -32,7 +39,6 @@ public class PointsManager : MonoBehaviour
 
     private void UpdatePointsCanvas()   
     {
-        PointsValue.text = _collectedPoints.ToString();
+        _canvasTextManager.PointsValueText.text = _collectedPoints.ToString();
     }
-
 }

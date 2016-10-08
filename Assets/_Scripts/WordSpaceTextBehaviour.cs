@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DamageIndicatorBehaviour : MonoBehaviour
+public class WordSpaceTextBehaviour : MonoBehaviour
 {
     private float _speed = 0.5f;
 

@@ -51,6 +51,7 @@ public abstract class Bonus : MonoBehaviour
             return;
 
         double percentOfAliveTime = remainingTime / Convert.ToDouble(AliveTime);
+
         float calcPoints = Convert.ToSingle(percentOfAliveTime) * MaxPointsToGive;
 
         _pointsManager.UpdatePointsValue(Mathf.RoundToInt(calcPoints));
