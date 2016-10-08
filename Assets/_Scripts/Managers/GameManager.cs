@@ -8,11 +8,14 @@ public class GameManager : MonoBehaviour
     [Tooltip("Set the points that are needed for player to progress to the next level.")]
     public int NeededPoints = 10;               // Default 40: Points needed to collect for level to finish.
 
+    [Tooltip("The seed of obstacles spawn.")]
+    public int SpawnObstaclesCount = 6;
+
     private PointsManager _pointsManager;
     private CanvasTextManager _canvasTextManager;
     private LevelManager _levelManager;
 
-    private bool levelProgressed;
+    private bool _levelProgressed;
 
     void Start()
     {
@@ -21,11 +24,15 @@ public class GameManager : MonoBehaviour
         _levelManager = GameObject.FindObjectOfType<LevelManager>();
 
         _canvasTextManager.NeededPointsText.text = NeededPoints.ToString();
+
+        _levelManager.SetObstaclesSpawnCount(SpawnObstaclesCount);
+        _levelManager.GenerateNewLevel();
     }
 
     void Update()
     {
         TrackCollectedPoints();
+
     }
 
     void TrackCollectedPoints()
@@ -33,10 +40,10 @@ public class GameManager : MonoBehaviour
         if (_pointsManager.CollectedPoints >= NeededPoints)
         {
             // Enable level progression.
-            if (!levelProgressed)
+            if (!_levelProgressed)
             {
                 _levelManager.ProgressToNextLevel();
-                levelProgressed = true;
+                _levelProgressed = true;
             }
         }
     }
