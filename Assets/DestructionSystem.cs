@@ -25,6 +25,9 @@ public class DestructionSystem : MonoBehaviour
             this.GetComponent<PolygonCollider2D>().isTrigger = true;
 
             _obstacle.RemoveItemFromChildObjectsList(this);
+
+            _obstacle.GetComponent<Animator>().SetTrigger("onHit");
+
             DestroyObject(this.gameObject, 2f);
         }
     }

@@ -40,6 +40,11 @@ public abstract class Obstacle : MonoBehaviour
         _childObjects.Remove(childObject);
     }
 
+    public void SpawnBonusItem()
+    {
+        Instantiate(BonusItemPrefab, this.transform.position, Quaternion.identity);
+    }
+
     void ScanHealth()
     {
         if (Health <= 0)
@@ -54,18 +59,14 @@ public abstract class Obstacle : MonoBehaviour
             GameObject.DestroyObject(this.gameObject);
         }
 
-        if (_childObjects.Count <= 0)
+        if(_childObjects.Count <= 0)
         {
-            SpawnBonusItem();  
+            SpawnBonusItem();
+            Destroy(this);
         }
     }
 
-    void SpawnBonusItem()
-    {
-        Instantiate(BonusItemPrefab, this.transform.position, Quaternion.identity);
-    }
-
-   void OnCollisionEnter2D(Collision2D col)
+    void OnCollisionEnter2D(Collision2D col)
     {
         if(_playerBall == null)
             return;
@@ -73,14 +74,6 @@ public abstract class Obstacle : MonoBehaviour
         if (col.gameObject == _playerBall.gameObject)
         {
             Health -= _playerBall.Damage;
-        }
-    }
-
-    void OnTriggerEnter2D(Collider2D col)
-    {
-        if (col.gameObject == _playerBall.gameObject)
-        {
-            _animator.SetTrigger("onHit");
         }
     }
 }
