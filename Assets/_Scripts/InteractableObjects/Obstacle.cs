@@ -12,16 +12,32 @@ public abstract class Obstacle : MonoBehaviour
 
     private Ball _playerBall;
     private PointsManager _pointsManager;
+    private Animator _animator;
+
+    private readonly List<DestructionSystem> _childObjects = new List<DestructionSystem>();
 
     void Start()
     {
+        _animator = this.GetComponent<Animator>();
+
         _playerBall = GameObject.FindObjectOfType<Ball>();
         _pointsManager = GameObject.FindObjectOfType<PointsManager>();
+
+        foreach (var obj in this.GetComponentsInChildren<DestructionSystem>())
+        {
+            _childObjects.Add(obj);
+        }
     }
 
     void Update()
     {
         ScanHealth();
+    }
+    
+    // TEMP CODE, TESTING PUPORSE
+    public void RemoveItemFromChildObjectsList(DestructionSystem childObject)
+    {
+        _childObjects.Remove(childObject);
     }
 
     void ScanHealth()
@@ -36,6 +52,11 @@ public abstract class Obstacle : MonoBehaviour
             SpawnBonusItem();
 
             GameObject.DestroyObject(this.gameObject);
+        }
+
+        if (_childObjects.Count <= 0)
+        {
+            SpawnBonusItem();  
         }
     }
 
@@ -52,6 +73,14 @@ public abstract class Obstacle : MonoBehaviour
         if (col.gameObject == _playerBall.gameObject)
         {
             Health -= _playerBall.Damage;
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject == _playerBall.gameObject)
+        {
+            _animator.SetTrigger("onHit");
         }
     }
 }

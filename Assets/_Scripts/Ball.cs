@@ -10,8 +10,6 @@ public class Ball : MonoBehaviour
 
     public GameObject WordSpaceTextPrefab;
 
-    private BonusManager _bonusManager;
-
     private int MaxDamage = 50;
     private int MinDamage = 10;
 
@@ -19,7 +17,6 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
-        _bonusManager = GameObject.FindObjectOfType<BonusManager>();
         _previousPosition = transform.position;                     // Starting off last position as current position
     }
 
@@ -88,11 +85,5 @@ public class Ball : MonoBehaviour
         {
             ShowDamagePopUp();
         }
-
-        //if (col.gameObject.GetComponent<Bonus>())
-        //{                                                       // TODO make the bonus class work with this.
-        //    _bonusManager.UpdateBonusValue(20);              // TODO will be changed, bonus value depends on the value and type of the picked up bonus.
-        //    _bonusManager.RemoveBonusItem(col.gameObject.GetComponent<Bonus>());
-        //}
     }
 }
