@@ -10,14 +10,19 @@ public class Ball : MonoBehaviour
 
     public GameObject WordSpaceTextPrefab;
 
+    public float BallNormalSpeed = 5f;
+
     private int MaxDamage = 50;
     private int MinDamage = 10;
 
+    private Rigidbody2D _rb;
     private Vector3 _previousPosition;
 
     void Start()
     {
         _previousPosition = transform.position;                     // Starting off last position as current position
+        _rb = GetComponent<Rigidbody2D>();
+        _rb.AddForce(Vector2.up * (BallNormalSpeed + 80f));
     }
 
     void Update()   
@@ -28,16 +33,14 @@ public class Ball : MonoBehaviour
 
     void CalcMovementFaceDirection()       // TODO add Quaternion.Slerp for smooth rotation for the character between axis + speed controller.
     {
-        //Debug.Log(this.GetComponent<Rigidbody2D>().velocity);
-        //Debug.Log(transform.InverseTransformDirection(this.gameObject.GetComponent<Rigidbody2D>().velocity));
         Vector3 positionFor2D = new Vector3(this.transform.position.x, this.transform.position.y, 0f);
         Vector3 deltaPosition = positionFor2D - _previousPosition;  // Calculate position change between frames
 
         if (deltaPosition != Vector3.zero)
         {
             transform.up = deltaPosition;                           // rotates Y axis as facing axis towards the movement.
+            _rb.AddForce(deltaPosition * BallNormalSpeed);
         }
-
         _previousPosition = transform.position;                     // Recording current position as previous position for next frame
     }
 

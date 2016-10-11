@@ -46,23 +46,13 @@ public abstract class Obstacle : MonoBehaviour
 
     void ScanHealth()
     {
-        //if (Health <= 0)      Currently not needed, as working on new destruction system.
-        //{
-        //    if (this.gameObject == null)
-        //        return;
-
-        //    _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
-        //    _pointsManager.UpdatePointsValue(GivePointsForDestroying);
-        //    SpawnBonusItem();
-
-        //    GameObject.DestroyObject(this.gameObject);
-        //}
-
         if(_childObjects.Count <= 0)
         {
             _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
+
             SpawnBonusItem();
-            Destroy(this);
+
+            GameObject.DestroyObject(this.gameObject);
         }
     }
 

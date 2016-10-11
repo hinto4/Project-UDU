@@ -42,7 +42,9 @@ public class GameManager : MonoBehaviour
             if (!_levelProgressed)
             {
                 SpawnObstaclesCount += 1;
+                _levelManager.SetObstaclesSpawnCount(SpawnObstaclesCount);
                 _levelManager.ProgressToNextLevel();
+                _levelManager.GenerateNewLevel();
                 _levelProgressed = true;
 
                 // TEMP - Increase needed points size and update canvas, reset points.
