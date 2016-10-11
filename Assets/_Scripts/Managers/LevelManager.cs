@@ -59,9 +59,11 @@ public class LevelManager : MonoBehaviour
 
                 if (sqrLen < Mathf.Pow(detectDistance, 2))
                 {
+                    Debug.Log("Spawn object too close, removing it and adding new position. " + positionBuffer[i]);
                     positionBuffer.Remove(positionBuffer[i]);
 
                     Vector2 newRandomPosition = new Vector2(Random.Range(minPos, maxPos), Random.Range(minPos, maxPos));
+                    Debug.Log("New position: " + newRandomPosition);
                     positionBuffer.Add(newRandomPosition);
                 }
             }

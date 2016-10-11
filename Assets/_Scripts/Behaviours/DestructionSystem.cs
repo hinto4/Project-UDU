@@ -15,7 +15,6 @@ public class DestructionSystem : MonoBehaviour
     {
         if (col.gameObject.GetComponent<Ball>())
         {
-            Debug.Log("Player hit.");
             this.GetComponent<Rigidbody2D>().isKinematic = false;
 
             this.GetComponent<Rigidbody2D>().AddForceAtPosition(

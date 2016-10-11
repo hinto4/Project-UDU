@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class BoxMovementController : MonoBehaviour
 {
-    public float RotationSpeed = 100f;
+    public float RotationSpeed;
 
     private Rigidbody2D rb;
 
@@ -31,5 +31,10 @@ public class BoxMovementController : MonoBehaviour
         {
             rb.MoveRotation(rb.rotation - RotationSpeed * Time.fixedDeltaTime);
         }
+    }
+
+    public Quaternion ReturnMovementDirection()
+    {
+        return this.transform.rotation;
     }
 }
