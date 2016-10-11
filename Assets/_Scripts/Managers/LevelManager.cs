@@ -6,7 +6,6 @@ public class LevelManager : MonoBehaviour
 {
     public int Level { get; set; }
 
-    public GameObject NextLevelPrefab;
     public GameObject[] Obstacles;
 
     private int _spawnObstaclesCount;
@@ -20,10 +19,6 @@ public class LevelManager : MonoBehaviour
 
     public void ProgressToNextLevel()
     {
-        GameObject nextLevelPrefab = Instantiate(NextLevelPrefab, transform.position, Quaternion.identity) as GameObject;
-        if (nextLevelPrefab == null)
-            return;
-
         Level++;
         _canvasTextManager.UpdateCanvasTextValue(_canvasTextManager.LevelText, Level.ToString());
     }
@@ -56,7 +51,8 @@ public class LevelManager : MonoBehaviour
             {
                 Vector2 offset = positionBuffer[i] - positionBuffer[i + 1];
                 float sqrLen = offset.sqrMagnitude;
-
+                
+                //TODO loop this till it gives unique new position.
                 if (sqrLen < Mathf.Pow(detectDistance, 2))
                 {
                     Debug.Log("Spawn object too close, removing it and adding new position. " + positionBuffer[i]);
@@ -82,6 +78,8 @@ public class LevelManager : MonoBehaviour
 
             obstaclePrefab.transform.SetParent(GameObject.FindGameObjectWithTag("WorldObjects").transform);
             obstaclePrefab.transform.position = obstaclePosition;
+
+            // Add obstacle to pointsmanager obstacle list, for ingame obstacle counting
         }
 
         positionBuffer.Clear(); // Clear the buffer.

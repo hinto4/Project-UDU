@@ -12,14 +12,11 @@ public abstract class Obstacle : MonoBehaviour
 
     private Ball _playerBall;
     private PointsManager _pointsManager;
-    private Animator _animator;
 
     private readonly List<DestructionSystem> _childObjects = new List<DestructionSystem>();
 
     void Start()
     {
-        _animator = this.GetComponent<Animator>();
-
         _playerBall = GameObject.FindObjectOfType<Ball>();
         _pointsManager = GameObject.FindObjectOfType<PointsManager>();
 
@@ -27,6 +24,8 @@ public abstract class Obstacle : MonoBehaviour
         {
             _childObjects.Add(obj);
         }
+
+        _pointsManager.UpdateObstacleList(this);
     }
 
     void Update()
@@ -47,20 +46,21 @@ public abstract class Obstacle : MonoBehaviour
 
     void ScanHealth()
     {
-        if (Health <= 0)
-        {
-            if (this.gameObject == null)
-                return;
+        //if (Health <= 0)      Currently not needed, as working on new destruction system.
+        //{
+        //    if (this.gameObject == null)
+        //        return;
 
-            _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
-            _pointsManager.UpdatePointsValue(GivePointsForDestroying);
-            SpawnBonusItem();
+        //    _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
+        //    _pointsManager.UpdatePointsValue(GivePointsForDestroying);
+        //    SpawnBonusItem();
 
-            GameObject.DestroyObject(this.gameObject);
-        }
+        //    GameObject.DestroyObject(this.gameObject);
+        //}
 
         if(_childObjects.Count <= 0)
         {
+            _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
             SpawnBonusItem();
             Destroy(this);
         }

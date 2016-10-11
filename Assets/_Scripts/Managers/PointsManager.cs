@@ -18,12 +18,17 @@ public class PointsManager : MonoBehaviour
 
     void Start()
     {
-        foreach (var obstacle in FindObjectsOfType<Obstacle>())
-        {
-             _obstaclesInGame.Add(obstacle);
-        }
-
         _canvasTextManager = GameObject.FindObjectOfType<CanvasTextManager>();
+    }
+
+    public int ObstacleCount()
+    {
+        return _obstaclesInGame.Count;
+    }
+
+    public void UpdateObstacleList(Obstacle addObstacle)
+    {
+        _obstaclesInGame.Add(addObstacle);
     }
 
     public void RemoveObstacle(Obstacle obstacle)
@@ -34,7 +39,13 @@ public class PointsManager : MonoBehaviour
     public void UpdatePointsValue(int value)
     {
         _collectedPoints += value;
-        UpdatePointsCanvas();   
+        UpdatePointsCanvas();
+    }
+
+    public void ResetPoints()
+    {
+        _collectedPoints = 0;
+        UpdatePointsCanvas();
     }
 
     private void UpdatePointsCanvas()   

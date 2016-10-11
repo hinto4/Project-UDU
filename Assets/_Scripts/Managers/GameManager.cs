@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         TrackCollectedPoints();
-
     }
 
     void TrackCollectedPoints()
@@ -42,9 +41,22 @@ public class GameManager : MonoBehaviour
             // Enable level progression.
             if (!_levelProgressed)
             {
+                SpawnObstaclesCount += 1;
                 _levelManager.ProgressToNextLevel();
                 _levelProgressed = true;
+
+                // TEMP - Increase needed points size and update canvas, reset points.
+                _pointsManager.ResetPoints();
+                NeededPoints += 10;
+                _canvasTextManager.NeededPointsText.text = NeededPoints.ToString();
             }
+            _levelProgressed = false;
+        }
+        // Failed the level, didn't meet the requirments in order to progress.
+        if (_pointsManager.ObstacleCount() <= 0 && _pointsManager.CollectedPoints < NeededPoints)    
+        {
+            _levelManager.GenerateNewLevel();
+            _pointsManager.ResetPoints();
         }
     }
 }
