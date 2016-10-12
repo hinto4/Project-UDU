@@ -38,13 +38,15 @@ public class LevelManager : MonoBehaviour
 
         List<Vector2> positionBuffer = new List<Vector2>();     // For storing the set positions.
 
+        // Store in list generated random vector2 positions.
         for (int i = 1; i <= _spawnObstaclesCount; i++)
         {
             Vector2 newRandomPosition = new Vector2(Random.Range(minPos, maxPos), Random.Range(minPos, maxPos));
             positionBuffer.Add(newRandomPosition);
 
         }
-        // Still broken......
+
+        // Check if position is too close to another position, if so generate new position till unique position is found.
         for (int i = 0; i < positionBuffer.Count; i++)
         {
             if (positionBuffer[i] != positionBuffer[positionBuffer.Count - 1])      // if the loop has reached to the end of the List size.
@@ -67,10 +69,11 @@ public class LevelManager : MonoBehaviour
             }
         }
 
+        // Spawn random obsticale in the array with the generated unique Vector2 position.
         foreach (var obstaclePosition in positionBuffer)
         {
             int randomObstacle = Random.Range(0, Obstacles.Length);     // Choose random obstacle from the Obstacles array.
-            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
+            Quaternion randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));   // Gives obstacle random rotation.
 
             GameObject obstaclePrefab = Instantiate(Obstacles[randomObstacle],
                 this.transform.position, randomRotation) as GameObject;
@@ -80,8 +83,6 @@ public class LevelManager : MonoBehaviour
 
             obstaclePrefab.transform.SetParent(GameObject.FindGameObjectWithTag("WorldObjects").transform);
             obstaclePrefab.transform.position = obstaclePosition;
-
-            // Add obstacle to pointsmanager obstacle list, for ingame obstacle counting
         }
 
         positionBuffer.Clear(); // Clear the buffer.
