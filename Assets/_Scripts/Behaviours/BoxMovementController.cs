@@ -7,11 +7,11 @@ public class BoxMovementController : MonoBehaviour
 {
     public float RotationSpeed;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D _rb;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -25,16 +25,11 @@ public class BoxMovementController : MonoBehaviour
 
         if (inputValue < 0)
         {
-            rb.MoveRotation(rb.rotation + RotationSpeed * Time.fixedDeltaTime);
+            _rb.MoveRotation(_rb.rotation + RotationSpeed * Time.fixedDeltaTime);
         }
         if (inputValue > 0)
         {
-            rb.MoveRotation(rb.rotation - RotationSpeed * Time.fixedDeltaTime);
+            _rb.MoveRotation(_rb.rotation - RotationSpeed * Time.fixedDeltaTime);
         }
-    }
-
-    public Quaternion ReturnMovementDirection()
-    {
-        return this.transform.rotation;
     }
 }

@@ -4,17 +4,16 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class MainGearBehaviour : MonoBehaviour
 {
-    //private BoxMovementController _boxMovementController;
-    //private Rigidbody2D _rb;
+    private BoxMovementController _playerBox;
 
-    //void Start()
-    //{
-    //    _boxMovementController = GameObject.FindObjectOfType<BoxMovementController>();
-    //    _rb = GetComponent<Rigidbody2D>();
-    //}
+    void Start()
+    {
+        _playerBox = GameObject.FindObjectOfType<BoxMovementController>();
+    }
 
-    //void Update()
-    //{
-        
-    //}
+    void Update()
+    {
+        transform.localRotation = _playerBox.transform.rotation;
+    }
+
 }

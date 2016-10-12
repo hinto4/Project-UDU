@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityStandardAssets.CrossPlatformInput;
 using Random = UnityEngine.Random;
 
 public class Ball : MonoBehaviour
@@ -25,7 +26,7 @@ public class Ball : MonoBehaviour
         _rb.AddForce(Vector2.up * (BallNormalSpeed + 80f));
     }
 
-    void Update()   
+    void FixedUpdate()   
     {
         DamageManager();
         CalcMovementFaceDirection();

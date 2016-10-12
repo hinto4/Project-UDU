@@ -52,15 +52,17 @@ public class LevelManager : MonoBehaviour
                 Vector2 offset = positionBuffer[i] - positionBuffer[i + 1];
                 float sqrLen = offset.sqrMagnitude;
                 
-                //TODO loop this till it gives unique new position.
-                if (sqrLen < Mathf.Pow(detectDistance, 2))
+                while (sqrLen < Mathf.Pow(detectDistance, 2))
                 {
+                    offset = positionBuffer[i] - positionBuffer[i + 1];
+                    sqrLen = offset.sqrMagnitude;
                     Debug.Log("Spawn object too close, removing it and adding new position. " + positionBuffer[i]);
                     positionBuffer.Remove(positionBuffer[i]);
 
                     Vector2 newRandomPosition = new Vector2(Random.Range(minPos, maxPos), Random.Range(minPos, maxPos));
                     Debug.Log("New position: " + newRandomPosition);
                     positionBuffer.Add(newRandomPosition);
+
                 }
             }
         }

@@ -51,8 +51,9 @@ public class GameManager : MonoBehaviour
                 _pointsManager.ResetPoints();
                 NeededPoints += 10;
                 _canvasTextManager.NeededPointsText.text = NeededPoints.ToString();
+
+                _levelProgressed = false;
             }
-            _levelProgressed = false;
         }
         // Failed the level, didn't meet the requirments in order to progress.
         if (_pointsManager.ObstacleCount() <= 0 && _pointsManager.CollectedPoints < NeededPoints)    
