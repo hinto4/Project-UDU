@@ -13,6 +13,8 @@ public abstract class Obstacle : MonoBehaviour
     private Ball _playerBall;
     private PointsManager _pointsManager;
 
+    private bool _hasSpawnedItem;
+
     private readonly List<DestructionSystem> _childObjects = new List<DestructionSystem>();
 
     void Start()
@@ -28,7 +30,7 @@ public abstract class Obstacle : MonoBehaviour
         _pointsManager.UpdateObstacleList(this);
     }
 
-    void Update()
+    void FixedUpdate()
     {
         ScanHealth();
     }
@@ -44,15 +46,19 @@ public abstract class Obstacle : MonoBehaviour
         Instantiate(BonusItemPrefab, this.transform.position, Quaternion.identity);
     }
 
+    
     void ScanHealth()
     {
         if(_childObjects.Count <= 0)
         {
             _pointsManager.RemoveObstacle(this.gameObject.GetComponent<Obstacle>());
 
-            SpawnBonusItem();
-
-            GameObject.DestroyObject(this.gameObject);
+            if (!_hasSpawnedItem)
+            {
+                SpawnBonusItem();
+                _hasSpawnedItem = true;
+            }
+            GameObject.DestroyObject(this.gameObject,3f);
         }
     }
 

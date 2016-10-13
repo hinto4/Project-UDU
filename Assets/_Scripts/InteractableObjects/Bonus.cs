@@ -62,6 +62,9 @@ public abstract class Bonus : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        if (_playerBall == null)
+            return;
+
         if (col.gameObject == _playerBall.gameObject)
         {
             CalcPointsBonus();

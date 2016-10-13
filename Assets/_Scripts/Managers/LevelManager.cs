@@ -27,7 +27,7 @@ public class LevelManager : MonoBehaviour
     {
         float minPos = -2;          // Limit the spawn space. Will be replaced with prefab.
         float maxPos = 2;
-        float detectDistance = 2.4f;  // The distance between the closest rock.
+        float detectDistance = 3.5f;  // The distance between the closest rock.
 
         foreach (var obs in FindObjectsOfType<Obstacle>())      // Finds if there's any left over obstacles, destroys them if so.
         {
@@ -43,7 +43,6 @@ public class LevelManager : MonoBehaviour
         {
             Vector2 newRandomPosition = new Vector2(Random.Range(minPos, maxPos), Random.Range(minPos, maxPos));
             positionBuffer.Add(newRandomPosition);
-
         }
 
         // Check if position is too close to another position, if so generate new position till unique position is found.
@@ -53,18 +52,20 @@ public class LevelManager : MonoBehaviour
             {
                 Vector2 offset = positionBuffer[i] - positionBuffer[i + 1];
                 float sqrLen = offset.sqrMagnitude;
-                
+                int index = i;
+
                 while (sqrLen < Mathf.Pow(detectDistance, 2))
                 {
-                    offset = positionBuffer[i] - positionBuffer[i + 1];
+                    offset = positionBuffer[index] - positionBuffer[index + 1];
                     sqrLen = offset.sqrMagnitude;
+                    index = i;
+
                     Debug.Log("Spawn object too close, removing it and adding new position. " + positionBuffer[i]);
-                    positionBuffer.Remove(positionBuffer[i]);
+                    positionBuffer.Remove(positionBuffer[index]);
 
                     Vector2 newRandomPosition = new Vector2(Random.Range(minPos, maxPos), Random.Range(minPos, maxPos));
                     Debug.Log("New position: " + newRandomPosition);
                     positionBuffer.Add(newRandomPosition);
-
                 }
             }
         }
