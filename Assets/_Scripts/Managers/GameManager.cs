@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
             }
         }
         // Failed the level, didn't meet the requirments in order to progress.
-        if (_pointsManager.ObstacleCount() <= 0 && _pointsManager.CollectedPoints < NeededPoints)    
+        else if(_pointsManager.ObstacleCount() <= 0 && _pointsManager.CollectedPoints < NeededPoints)    
         {
             _levelManager.GenerateNewLevel();
             _pointsManager.ResetPoints();
